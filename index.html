@@ -583,4 +583,29 @@
         });
         
         pinBtn.addEventListener('click', () => {
-            showModal('Pin to Taskbar', 'To pin RedFox to your taskbar with icon:\n\n1. Click the browser menu (⋮)\n2. Select "More to
+            showModal('Pin to Taskbar', 'To pin RedFox to your taskbar with icon:\n\n1. Click the browser menu (⋮)\n2. Select "More tools" → "Create shortcut..."\n3. Check "Open as window" and "Pin to taskbar"\n4. The icon.ico file will be used automatically');
+        });
+        
+        closePromptBtn.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+        });
+        
+        window.onload = function() {
+            const firstTab = createTab();
+            switchToTab(firstTab.id);
+            
+            // FORCE FAVICON TO LOAD PROPERLY
+            const favicon = document.querySelector('link[rel="icon"]');
+            if (favicon) {
+                favicon.href = 'icon.ico?' + Date.now(); // Cache bust
+            }
+            
+            // Create a meta tag for IE pinned sites
+            const meta = document.createElement('meta');
+            meta.name = 'msapplication-TileImage';
+            meta.content = 'icon.ico';
+            document.head.appendChild(meta);
+        };
+    </script>
+</body>
+    </html> 
